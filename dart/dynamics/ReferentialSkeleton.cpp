@@ -45,9 +45,10 @@ namespace dynamics {
 std::unique_ptr<common::LockableReference>
 ReferentialSkeleton::getLockableReference() const
 {
-  return std::make_unique<
+  return std::unique_ptr<
       common::MultiLockableReference<std::mutex>>(
-          mPtr, mSkeletonMutexes.begin(), mSkeletonMutexes.end());
+          new common::MultiLockableReference<std::mutex>(
+            mPtr, mSkeletonMutexes.begin(), mSkeletonMutexes.end()));
 }
 
 //==============================================================================

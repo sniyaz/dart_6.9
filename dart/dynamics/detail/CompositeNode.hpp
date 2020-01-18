@@ -49,7 +49,7 @@ void CompositeStateNode<Base>::setNodeState(const Node::State& otherState)
 template <class Base>
 std::unique_ptr<Node::State> CompositeStateNode<Base>::getNodeState() const
 {
-  return std::make_unique<State>(common::Composite::getCompositeState());
+  return std::unique_ptr<State>(new State(common::Composite::getCompositeState()));
 }
 
 //==============================================================================
@@ -74,8 +74,8 @@ template <class Base>
 std::unique_ptr<Node::Properties>
 CompositePropertiesNode<Base>::getNodeProperties() const
 {
-  return std::make_unique<Properties>(
-        common::Composite::getCompositeProperties());
+  return std::unique_ptr<Properties>(
+        new Properties(common::Composite::getCompositeProperties()));
 }
 
 //==============================================================================

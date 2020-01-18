@@ -131,13 +131,13 @@ SharedLibraryIkFast::SharedLibraryIkFast(InverseKinematics* ik,
 auto SharedLibraryIkFast::clone(InverseKinematics* newIK) const
     -> std::unique_ptr<GradientMethod>
 {
-  return std::make_unique<SharedLibraryIkFast>(
-      newIK,
+  return std::unique_ptr<SharedLibraryIkFast>(
+      new SharedLibraryIkFast(newIK,
       mFilePath,
       mDofs,
       mFreeDofs,
       getMethodName(),
-      getAnalyticalProperties());
+      getAnalyticalProperties()));
 }
 
 //==============================================================================

@@ -109,7 +109,7 @@ void SoftMeshShape::_buildMesh()
   int nFaces    = mSoftBodyNode->getNumFaces();
 
   // Create new aiMesh
-  mAssimpMesh = std::make_unique<aiMesh>();
+  mAssimpMesh = std::unique_ptr<aiMesh>(new aiMesh());
 
   // Set vertices and normals
   mAssimpMesh->mNumVertices = nVertices;

@@ -10,36 +10,40 @@ dart_add_core_sources(${srcs} ${detail_srcs})
 dart_get_filename_components(header_names "dynamics headers" ${hdrs})
 # TODO: remove below line once the files are completely removed.
 list(REMOVE_ITEM header_names "MultiSphereShape.hpp")
-dart_generate_include_header_file(
-  "${CMAKE_CURRENT_BINARY_DIR}/dynamics.hpp"
+dart_generate_include_header_list(
+  dynamics_headers
   "dart/dynamics/"
+  "dynamics headers"
   ${header_names}
+)
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/dynamics.hpp.in
+  ${CMAKE_CURRENT_BINARY_DIR}/dynamics.hpp
 )
 
 # Install
-if(NOT DART_BUILD_DARTPY)
-  install(
-    FILES ${hdrs} ${CMAKE_CURRENT_BINARY_DIR}/dynamics.hpp
-    DESTINATION include/dart/dynamics
-    COMPONENT headers
-  )
-  install(
-    FILES ${detail_hdrs}
-    DESTINATION include/dart/dynamics/detail
-    COMPONENT headers
-  )
-endif()
+install(
+  FILES ${hdrs} ${CMAKE_CURRENT_BINARY_DIR}/dynamics.hpp
+  DESTINATION include/dart/dynamics
+  COMPONENT headers
+)
+install(
+  FILES ${detail_hdrs}
+  DESTINATION include/dart/dynamics/detail
+  COMPONENT headers
+)
+
+dart_format_add(
+  TranslationalJoint2D.hpp
+  TranslationalJoint2D.cpp
+  detail/TranslationalJoint2DAspect.hpp
+  detail/TranslationalJoint2DAspect.cpp
+)
 
 dart_format_add(
   HeightmapShape.hpp
-  PointCloudShape.hpp
-  PointCloudShape.cpp
   VoxelGridShape.hpp
   VoxelGridShape.cpp
   SmartPointer.hpp
-  TranslationalJoint2D.hpp
-  TranslationalJoint2D.cpp
   detail/HeightmapShape-impl.hpp
-  detail/TranslationalJoint2DAspect.hpp
-  detail/TranslationalJoint2DAspect.cpp
 )

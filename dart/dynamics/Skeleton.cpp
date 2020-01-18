@@ -384,8 +384,8 @@ std::mutex& Skeleton::getMutex() const
 //==============================================================================
 std::unique_ptr<common::LockableReference> Skeleton::getLockableReference() const
 {
-  return std::make_unique<common::SingleLockableReference<std::mutex>>(
-      mPtr, mMutex);
+  return std::unique_ptr<common::SingleLockableReference<std::mutex>>(
+      new common::SingleLockableReference<std::mutex>(mPtr, mMutex));
 }
 
 //==============================================================================

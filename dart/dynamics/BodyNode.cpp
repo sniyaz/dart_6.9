@@ -69,7 +69,7 @@ static void extractDataFromNodeTypeMap(
 
     std::unique_ptr<VectorType>& data = it->second;
     if(!data)
-      data = std::make_unique<VectorType>();
+      data = std::unique_ptr<VectorType>(new VectorType());
 
     data->getVector().resize(nodes.size());
 
